@@ -1,0 +1,193 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: sync
+    description: Optional cross-device progress sync for CodeFlow
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /sync/sessions:
+    get:
+      operationId: listSessions
+      tags: [sync]
+      summary: List recent practice sessions for a device
+      parameters:
+        - name: deviceId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Recent sessions, most recent first
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PracticeSession"
+    post:
+      operationId: createSession
+      tags: [sync]
+      summary: Record a completed practice session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PracticeSessionInput"
+      responses:
+        "201":
+          description: Session recorded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PracticeSession"
+  /sync/stats:
+    get:
+      operationId: getStats
+      tags: [sync]
+      summary: Aggregate stats for a device (best WPM, average accuracy, streak, totals)
+      parameters:
+        - name: deviceId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Aggregate stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DeviceStats"
+  /sync/leaderboard:
+    get:
+      operationId: getLeaderboard
+      tags: [sync]
+      summary: Top practice sessions across all devices, by WPM
+      responses:
+        "200":
+          description: Top sessions ranked by WPM
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaderboardEntry"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    PracticeSession:
+      type: object
+      required:
+        [id, deviceId, problemId, problemTitle, language, wpm, accuracy, durationSeconds, completedAt]
+      properties:
+        id:
+          type: integer
+        deviceId:
+          type: string
+        problemId:
+          type: string
+        problemTitle:
+          type: string
+        language:
+          type: string
+          enum: [cpp, java, python]
+        wpm:
+          type: number
+        accuracy:
+          type: number
+        durationSeconds:
+          type: number
+        completedAt:
+          type: string
+          format: date-time
+    PracticeSessionInput:
+      type: object
+      required:
+        [deviceId, problemId, problemTitle, language, wpm, accuracy, durationSeconds]
+      properties:
+        deviceId:
+          type: string
+          minLength: 1
+        problemId:
+          type: string
+          minLength: 1
+        problemTitle:
+          type: string
+          minLength: 1
+        language:
+          type: string
+          enum: [cpp, java, python]
+        wpm:
+          type: number
+          minimum: 0
+        accuracy:
+          type: number
+          minimum: 0
+          maximum: 100
+        durationSeconds:
+          type: number
+          minimum: 0
+    DeviceStats:
+      type: object
+      required:
+        [deviceId, totalSessions, bestWpm, averageWpm, averageAccuracy, currentStreak, longestStreak]
+      properties:
+        deviceId:
+          type: string
+        totalSessions:
+          type: integer
+        bestWpm:
+          type: number
+        averageWpm:
+          type: number
+        averageAccuracy:
+          type: number
+        currentStreak:
+          type: integer
+        longestStreak:
+          type: integer
+    LeaderboardEntry:
+      type: object
+      required: [problemTitle, language, wpm, accuracy, completedAt]
+      properties:
+        problemTitle:
+          type: string
+        language:
+          type: string
+          enum: [cpp, java, python]
+        wpm:
+          type: number
+        accuracy:
+          type: number
+        completedAt:
+          type: string
+          format: date-time

@@ -1,0 +1,28 @@
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "artifacts/*",
+    "lib/*",
+    "scripts"
+  ],
+  "scripts": {
+    "dev": "concurrently -n API,WEB -c blue,green \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "dotenv -e .env -- cross-env PORT=8080 NODE_ENV=development npm run dev -w @workspace/api-server",
+    "dev:web": "dotenv -e .env -- cross-env PORT=24527 BASE_PATH=/ npm run dev -w @workspace/codeflow",
+    "build": "npm run typecheck && npm run build --workspaces --if-present",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "npm run typecheck:libs && npm run typecheck --workspaces --if-present",
+    "db:push": "dotenv -e .env -- npm run push -w @workspace/db",
+    "db:push:force": "dotenv -e .env -- npm run push-force -w @workspace/db"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.4.4",
+    "prettier": "^3.9.4",
+    "typescript": "~5.9.3"
+  }
+}

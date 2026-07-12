@@ -1,0 +1,347 @@
+# Additional Requirements for CodeFlow
+
+## Built-in Practice Library
+
+The application must launch with a rich collection of built-in interview problems instead of an empty database.
+
+Include official, optimized solutions (not brute force) for every supported language:
+
+* C++
+* Java
+* Python
+
+Each problem should contain:
+
+* Problem Title
+* Difficulty
+* Topic
+* Short Problem Summary
+* Official Optimized Solution
+* Time Complexity
+* Space Complexity
+* Explanation
+* Tags
+
+The typing area should work exactly like Monkeytype.
+
+The official solution should appear in the background with approximately **20% opacity**.
+
+The user's typed code appears on top with full opacity.
+
+Correct characters instantly become green.
+
+Incorrect characters become red.
+
+Current caret should glow with a premium animated effect.
+
+The solution should never execute—it is purely a typing experience.
+
+---
+
+## Initial Problem Collection
+
+Populate the application with many famous interview problems covering all major topics.
+
+Examples include:
+
+Arrays
+
+* Two Sum
+* Best Time to Buy and Sell Stock
+* Contains Duplicate
+* Product of Array Except Self
+* Maximum Subarray
+* Merge Sorted Array
+
+Strings
+
+* Valid Anagram
+* Valid Palindrome
+* Longest Common Prefix
+* Group Anagrams
+* Longest Substring Without Repeating Characters
+
+Two Pointers
+
+* Two Sum II
+* Container With Most Water
+* 3Sum
+* Trapping Rain Water
+
+Sliding Window
+
+* Minimum Window Substring
+* Permutation in String
+* Longest Repeating Character Replacement
+
+Binary Search
+
+* Binary Search
+* Search in Rotated Sorted Array
+* Find Peak Element
+
+Linked Lists
+
+* Reverse Linked List
+* Merge Two Sorted Lists
+* Linked List Cycle
+* Remove Nth Node From End
+
+Stacks
+
+* Valid Parentheses
+* Min Stack
+* Daily Temperatures
+
+Queues
+
+* Implement Queue Using Stacks
+
+Trees
+
+* Maximum Depth of Binary Tree
+* Same Tree
+* Invert Binary Tree
+* Diameter of Binary Tree
+* Lowest Common Ancestor
+
+BST
+
+* Validate BST
+* Kth Smallest Element
+* Insert into BST
+
+Heap
+
+* K Closest Points
+* Top K Frequent Elements
+* Merge K Sorted Lists
+
+Graphs
+
+* Number of Islands
+* Clone Graph
+* Course Schedule
+
+Dynamic Programming
+
+* Climbing Stairs
+* House Robber
+* Coin Change
+* Longest Increasing Subsequence
+* Word Break
+
+Backtracking
+
+* Subsets
+* Permutations
+* Combination Sum
+* N Queens
+
+Greedy
+
+* Jump Game
+* Gas Station
+
+Recursion
+
+* Fibonacci
+* Generate Parentheses
+
+These problems should be organized into searchable topic packs and difficulty levels.
+
+The architecture should make it easy to add hundreds more problems later.
+
+---
+
+# Premium User Experience
+
+The frontend must be one of the strongest parts of CodeFlow.
+
+It should not feel like a student project.
+
+It should feel like premium software created by a world-class product design team.
+
+Every interaction should be smooth.
+
+Every animation should be meaningful.
+
+Every transition should feel satisfying.
+
+No lag.
+
+No clutter.
+
+No unnecessary UI elements.
+
+The experience should make users want to stay and practice.
+
+---
+
+# First Impression
+
+When a user opens CodeFlow for the first time, they should immediately feel:
+
+"I've entered the training ground of elite programmers."
+
+The default experience should inspire confidence, focus, and determination.
+
+The interface should evoke the feeling of preparing for an important battle—without becoming noisy or distracting.
+
+The atmosphere should be clean, powerful, and motivating.
+
+---
+
+# Default Theme — Inferno
+
+The default theme should be an original fiery premium theme.
+
+Design inspiration:
+
+* Deep black background
+* Ember orange highlights
+* Crimson accents
+* Golden glow
+* Animated particles resembling floating sparks
+* Soft smoke gradients
+* Glowing borders
+* Warm lighting
+* Elegant glassmorphism
+
+Everything should remain readable and professional.
+
+Avoid excessive visual effects that hurt usability.
+
+Users should be able to switch to any other available theme at any time.
+
+---
+
+# Animations
+
+Use premium micro-interactions throughout the application.
+
+Examples include:
+
+* Smooth page transitions
+* Button hover effects
+* Floating cards
+* Animated counters
+* Progress bar animations
+* Elegant typing caret
+* Smooth keyboard animations
+* Achievement unlock animations
+* Session completion celebration
+* Theme transition animations
+* Dashboard loading skeletons
+* Particle effects used sparingly
+* Soft glowing elements
+
+Animations should always improve the experience rather than distract from it.
+
+---
+
+# Sound Design
+
+The application should include carefully designed sound effects.
+
+Examples:
+
+* Soft keypress sounds
+* Mechanical keyboard sounds
+* Premium click sounds
+* Success chimes
+* Achievement unlock sounds
+* Streak milestone effects
+* Session completion sound
+* Menu interaction sounds
+
+Provide volume controls and the ability to disable all sounds.
+
+The audio should feel satisfying and immersive without becoming repetitive.
+
+---
+
+# Emotional Design
+
+Every part of CodeFlow should encourage users to keep improving.
+
+The product should make users feel like they are training, progressing, and becoming stronger with every session.
+
+The interface should communicate mastery, focus, discipline, and growth.
+
+The overall experience should combine the elegance of modern productivity software with the excitement of a high-quality game while always prioritizing usability and accessibility.
+
+The final product should feel polished enough that users naturally think:
+
+"This is the best coding typing platform I've ever used."
+
+---
+
+# Technical & Architecture Requirements
+
+## Package Manager — npm only
+
+* The project must use **npm**, not pnpm and not yarn.
+* Do not generate a `pnpm-lock.yaml` or `pnpm-workspace.yaml`.
+* Generate a `package-lock.json` for both the client and server (or the root, if using a single package).
+* All setup/run instructions in the README must use `npm install`, `npm run dev`, `npm run build`, `npm start`, etc.
+* If the project is a monorepo (client + server), use npm workspaces instead of pnpm workspaces.
+
+## Fully Self-Contained — No External APIs
+
+* The application must not depend on any external/third-party API to function (no external code-execution APIs, no external judge services, no external AI/completion APIs, no external asset CDNs required at runtime).
+* All problem data, official solutions, sounds, fonts, and assets should be bundled inside the project itself (local JSON/DB seed files, local `/public` or `/assets` folders).
+* Since the solution is never executed (per the Built-in Practice Library section above), there is no need for a code-execution sandbox or judge API at all — this keeps the whole app self-contained by design.
+* Any font/icon libraries used should be installed as npm packages rather than loaded from an external CDN at runtime, so the app still works with no internet connection.
+
+## Frontend Must Work Even If the Backend Is Down
+
+* The frontend must be able to load and be usable even if the backend/API server is not running or is unreachable.
+* Ship the built-in problem library as a static local dataset bundled with the frontend (e.g., a local JSON file imported directly into the client), not something that must be fetched from the backend on first load.
+* Typing practice, the Monkeytype-style typing engine, theme switching, sound settings, and viewing bundled problems must all work purely client-side, with zero backend calls required.
+* The backend should only be needed for optional features such as: persisting user accounts, saving stats/history across devices, and syncing progress. These calls should fail gracefully (e.g., silently fall back to local browser storage) instead of breaking the UI when the backend is unavailable.
+* Show a small non-intrusive "offline / backend unavailable" indicator rather than an error screen when the backend can't be reached.
+
+## Local Setup After Downloading from GitHub (Replit → GitHub → ZIP → Local)
+
+* The project must be runnable locally after being pushed from Replit to GitHub and then downloaded as a ZIP and extracted — no Replit-specific services should be required.
+* Do not hardcode any Replit-only environment variables, Replit DB, or Replit's built-in Postgres connection as a hard dependency. Use standard environment variables (`.env` file with a `.env.example` template) for any configuration.
+* Since Replit's built-in database will not be available once the project is downloaded and run locally, the project must support connecting to a **self-hosted PostgreSQL instance** instead:
+  * Include a `docker-compose.yml` that spins up a local Postgres container, so the user can run `docker compose up` to get a database with zero manual setup.
+  * Include clear README instructions for both paths: (1) running with Docker Postgres, and (2) connecting to any locally installed Postgres by editing `DATABASE_URL` in `.env`.
+  * Include the database schema/migration files (e.g., via Prisma, Drizzle, or plain SQL) so the local database can be initialized with one command (e.g., `npm run db:push` or `npm run db:migrate`).
+* Because the frontend must also work without the backend/DB (see above), the app should remain fully usable for practicing/typing even before the local database is set up — the database is only needed for account/progress persistence.
+* README should include a simple "Quick Start" section:
+  1. `git clone` / unzip the project
+  2. `npm install`
+  3. copy `.env.example` to `.env`
+  4. `docker compose up -d` (optional, only for persistence)
+  5. `npm run dev`
+
+## Whitespace- and Spacing-Tolerant Typing Comparison
+
+Different people format code differently — for example:
+
+* `for(int i=0; i<n; i++)`
+* `for ( int i = 0 ; i < n ; i++ )`
+
+Both of the above must be treated as **correct**, since they represent the same code with different spacing style. The typing comparison logic must account for this:
+
+* When comparing the user's typed character to the official solution's character at the same logical position, **collapse runs of horizontal whitespace (spaces) around operators, parentheses, and punctuation** so that extra or missing single spaces around symbols like `(`, `)`, `<`, `=`, `;`, `,`, `+`, `-`, `*`, `/` do not count as an error.
+* In practice this means: normalize both the reference solution and the user's input by reducing multiple consecutive spaces to a single space (or removing optional spaces around punctuation entirely) before doing the character-by-character correctness check — while still visually rendering the user's own spacing choices as they type, not silently rewriting what they see.
+* This tolerance applies **only to horizontal spacing between tokens on the same line** — it must NOT apply to:
+  * Indentation at the start of a line (see below, this still must be correct).
+  * Newlines / line breaks.
+  * Spacing inside string or character literals (e.g. `"hello world"` must stay exact).
+* **Indentation must still be enforced correctly.** The user's leading whitespace at the start of each line must match the expected indentation level of the official solution (accounting for either spaces or tabs consistently, per the project's configured indent style), so the typed code keeps proper nested structure (e.g., inside loops, conditionals, function bodies). Incorrect indentation should still be flagged/colored as an error, the same way a wrong character would be.
+* Recommended implementation approach: tokenize both the reference code and the user's input (or use a lightweight normalization pass) rather than doing a naive character-index comparison, so that flexible inter-token spacing can be allowed while indentation, newlines, and literal content remain strictly validated.
+
+---
+
+# Summary of Changes in This Version
+
+* Switched package manager from pnpm to **npm** (npm workspaces if monorepo).
+* Made the entire app **self-contained**, with no reliance on external third-party APIs.
+* Guaranteed the **frontend works standalone**, even when the backend is offline, using a bundled local problem dataset and graceful fallback to local storage.
+* Added support for **local development after cloning/unzipping from GitHub**, including a Docker-based local Postgres setup to replace Replit's built-in database.
+* Added a **whitespace-tolerant, indentation-aware typing comparison engine** so differing (but equivalent) code spacing styles are accepted as correct, while indentation and structure are still validated.

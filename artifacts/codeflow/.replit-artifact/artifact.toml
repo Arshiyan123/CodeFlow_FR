@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "CodeFlow"
+version = "1.0.0"
+id = "artifacts/codeflow"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24527
+
+[services.development]
+run = "pnpm --filter @workspace/codeflow run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/codeflow", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/codeflow/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24527"
+BASE_PATH = "/"

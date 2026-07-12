@@ -1,0 +1,2 @@
+- [Vite JSX-in-.ts esbuild failure](vite-jsx-ts-extension.md) — a `.ts` file returning JSX (e.g. a context provider) fails esbuild transform; must be `.tsx`.
+- [Anonymous device-based sync pattern](anonymous-device-sync.md) — lightweight alternative to full auth for optional cross-device stat sync, with local-first offline fallback.

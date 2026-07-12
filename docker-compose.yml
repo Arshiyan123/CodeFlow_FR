@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: codeflow-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: codeflow
+      POSTGRES_PASSWORD: codeflow
+      POSTGRES_DB: codeflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - codeflow_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codeflow -d codeflow"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  codeflow_pgdata:
